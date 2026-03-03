@@ -1,0 +1,83 @@
+﻿<Page x:Class="Tuhvatshin_glaski_save.AgentPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Tuhvatshin_glaski_save"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="AgentPage" FontFamily="Century Gothic">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBox Margin="10" Name="TBoxSearch" TextChanged="TBoxSearch_TextChanged" Width="300" FontSize="15" />
+            <ComboBox Margin="10" Width="200" Name="SortCombo" SelectionChanged="SortCombo_SelectionChanged">
+                <TextBlock>сортировка</TextBlock>
+                <TextBlock>наименования по возрастанию</TextBlock>
+                <TextBlock>наименования по убыванию</TextBlock>
+                <TextBlock>скидка по возрастанию</TextBlock>
+                <TextBlock>скидка по убыванию</TextBlock>
+                <TextBlock>приоритет по возрастанию</TextBlock>
+                <TextBlock>приоритет по убыванию</TextBlock>
+            </ComboBox>
+            <ComboBox Margin="10" Width="200" Name="TypeCombo" SelectionChanged="TypeCombo_SelectionChanged">
+                <TextBlock>Все типы</TextBlock>
+                <TextBlock>МФО</TextBlock>
+                <TextBlock>ООО</TextBlock>
+                <TextBlock>ЗАО</TextBlock>
+                <TextBlock>МКК</TextBlock>
+                <TextBlock>ОАО</TextBlock>
+                <TextBlock>ПАО</TextBlock>
+            </ComboBox>
+        </StackPanel>
+        <ListView Name="AgentListView" Grid.Row="2">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="700"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Width="200" Grid.Column="0" Grid.RowSpan="4" Stretch="UniformToFill" HorizontalAlignment="Center">
+                            <Image.Source>
+                                <Binding Path="Logo">
+                                    <Binding.TargetNullValue>
+                                        <ImageSource>
+                                            res/picture.png
+                                        </ImageSource>
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </Image.Source>
+                        </Image>
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <WrapPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                                <TextBlock FontSize="18" FontWeight="DemiBold" Text="{Binding AgentType.Title}"></TextBlock>
+                                <TextBlock FontSize="18" FontWeight="DemiBold">|</TextBlock>
+                                <TextBlock FontSize="18" FontWeight="DemiBold" Text="{Binding Title}"></TextBlock>
+                            </WrapPanel>
+                            <TextBlock Margin="5" Grid.Row="1" Grid.Column="1" FontSize="14" Text="{Binding salesForYear, StringFormat={}{0} продаж за год}"/>
+                            <TextBlock Margin="5" Grid.Row="2" Grid.Column="1" FontSize="14" Text="{Binding Phone}"/>
+                            <TextBlock Margin="5" Grid.Row="3" Grid.Column="1" FontSize="14" Text="{Binding Priority, StringFormat=Приоритетность: {0}}"/>
+                            <TextBlock Margin="5" Grid.Row="4" Grid.Column="1" FontSize="14" Text="{Binding Email}"/> 
+                        </StackPanel>
+                        <TextBlock  HorizontalAlignment="Right" Grid.Column="2" FontSize="18" Text="{Binding Discount, StringFormat={}{0}%}"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</Page>
