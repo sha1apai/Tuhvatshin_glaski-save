@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,10 +35,39 @@ namespace Tuhvatshin_glaski_save
         private void ChangePicBtn_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog myOpenFileDialog = new OpenFileDialog();
-            if(myOpenFileDialog.ShowDialog() == true)
+            if (myOpenFileDialog.ShowDialog() == true)
             {
-                _currentAgent.Logo = myOpenFileDialog.FileName;
-                LogoImage.Source = new BitmapImage(new Uri(myOpenFileDialog.FileName));
+                string selectedPath = myOpenFileDialog.FileName;
+                LogoImage.Source = new BitmapImage(new Uri(selectedPath));
+
+                try
+                {
+                    var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                    if (!baseDir.EndsWith(System.IO.Path.DirectorySeparatorChar.ToString()))
+                        baseDir += System.IO.Path.DirectorySeparatorChar;
+
+                    var baseUri = new Uri(baseDir);
+                    var fileUri = new Uri(selectedPath);
+                    string relative = Uri.UnescapeDataString(baseUri.MakeRelativeUri(fileUri).ToString())
+                                         .Replace('/', System.IO.Path.DirectorySeparatorChar);
+
+                    var segments = relative
+                        .Split(new[] { System.IO.Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries)
+                        .Where(s => s != ".." && s != ".")
+                        .ToArray();
+
+                    string cleaned;
+                    if (segments.Length == 0)
+                        cleaned = System.IO.Path.DirectorySeparatorChar.ToString() + relative.TrimStart(System.IO.Path.DirectorySeparatorChar);
+                    else
+                        cleaned = System.IO.Path.DirectorySeparatorChar + string.Join(System.IO.Path.DirectorySeparatorChar.ToString(), segments);
+
+                    _currentAgent.Logo = cleaned;
+                }
+                catch
+                {
+                    _currentAgent.Logo = selectedPath;
+                }
             }
         }
 
