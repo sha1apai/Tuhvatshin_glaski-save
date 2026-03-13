@@ -34,10 +34,9 @@
                 <TextBlock>ОАО</TextBlock>
                 <TextBlock>ПАО</TextBlock>
             </ComboBox>
+            <Button Margin="10" Name="AgentAddBtn" Click="AgentAddBtn_Click">Добавить агента</Button>
         </StackPanel>
         <WrapPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right">
-            <!--<TextBlock Name="CountPageTB" FontSize="20" Height="20"></TextBlock>
-            <TextBlock Name="RecordPageTB" FontSize="20" Height="20"></TextBlock>-->
             <Button Name="LeftButton" Click="LeftButton_Click" Width="20" Height="25" Content="&lt;"/>
             <ListBox FontSize="20" Name="PageLB" SelectionChanged="PageLB_SelectionChanged">
                 <ListBox.ItemsPanel>
@@ -48,7 +47,7 @@
             </ListBox>
             <Button Name="RightButton" Click="RightButton_Click" Width="20" Height="25" Content="&gt;"/>
         </WrapPanel>
-        <ListView Name="AgentListView" Grid.Row="2">    
+        <ListView Name="AgentListView" Grid.Row="2">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Gray" BorderThickness="1" Margin="2" Padding="0">
@@ -62,10 +61,10 @@
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="700"></ColumnDefinition>
+                                <ColumnDefinition Width="550"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Image Width="200" Grid.Column="0" Grid.RowSpan="4" Stretch="UniformToFill" HorizontalAlignment="Center">
+                            <Image Width="200" Grid.Column="0"  Stretch="UniformToFill" HorizontalAlignment="Center">
                                 <Image.Source>
                                     <Binding Path="Logo">
                                         <Binding.TargetNullValue>
@@ -88,6 +87,7 @@
                                 <TextBlock Margin="5" Grid.Row="4" Grid.Column="1" FontSize="14" Text="{Binding Email}"/>
                             </StackPanel>
                             <TextBlock  HorizontalAlignment="Right" Grid.Column="2" FontSize="18" Text="{Binding Discount, StringFormat={}{0}%}"></TextBlock>
+                            <Button Margin="5" Grid.Column="2" Grid.Row="1" Name="EditBtn" Click="EditBtn_Click">Редактировать</Button>
                         </Grid>
                     </Border>
                 </DataTemplate>

@@ -27,7 +27,7 @@ namespace Tuhvatshin_glaski_save
             SortCombo.SelectedIndex = 0;
             Update();
         }
-        private void Update()
+        public void Update()
         {
             //тип
             var currentAgent = Tuhvatshin_glaskiEntities.GetContext().Agent.ToList();
@@ -134,6 +134,15 @@ namespace Tuhvatshin_glaski_save
                     Update();
                 }
             }
+        }
+
+        private void AgentAddBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new AddEditPage(null));
+        }
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new AddEditPage((sender as Button).DataContext as Agent));
         }
     }
 }
